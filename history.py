@@ -1,4 +1,4 @@
-"""Change detection and historical snapshots.
+"""Change detection and historical snapshots (pet name + demand only).
 
 Snapshots live in data/history/ as <UTC timestamp>.json:
   * the first one is a "full" snapshot (the complete pet list = baseline)
@@ -13,15 +13,15 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-import config
 from parser import slugify
 from storage import iso
 
 log = logging.getLogger("amvgg.history")
 
-TRACKED = [f"values.{k}" for k in config.VALUE_FIELDS] + [
-    "listed_value", "rarity", "demand", "trend", "image_url",
-]
+# Only demand is tracked. demand_stars is the numeric form ("3/5" -> 3), so a
+# change in it is classed as an increase/decrease; the "demand" string is derived
+# from it and not tracked separately (that would double-count every change).
+TRACKED = ["demand_stars"]
 _SNAP_RE = re.compile(r"^\d{8}T\d{6}Z(-\d+)?\.json$")
 
 
@@ -29,8 +29,6 @@ _SNAP_RE = re.compile(r"^\d{8}T\d{6}Z(-\d+)?\.json$")
 # Diffing
 # --------------------------------------------------------------------------- #
 def _get(pet: dict, path: str):
-    if path.startswith("values."):
-        return (pet.get("values") or {}).get(path.split(".", 1)[1])
     return pet.get(path)
 
 
@@ -54,7 +52,7 @@ def diff_pets(old: list[dict], new: list[dict]) -> dict:
 
     added = [p for pid, p in new_by.items() if pid not in old_by]
     removed = [
-        {"id": pid, "name": p["name"], "values": p.get("values")}
+        {"id": pid, "name": p["name"], "demand": p.get("demand")}
         for pid, p in old_by.items() if pid not in new_by
     ]
     changed = []
@@ -70,16 +68,13 @@ def diff_pets(old: list[dict], new: list[dict]) -> dict:
             changed.append({"id": pid, "name": np_["name"], "changes": changes})
 
     flat = [c for entry in changed for c in entry["changes"]]
-    value_changes = [c for c in flat if c["field"].startswith("values.")]
     summary = {
         "added": len(added),
         "removed": len(removed),
         "pets_changed": len(changed),
-        "value_increases": sum(1 for c in value_changes if c["direction"] == "up"),
-        "value_decreases": sum(1 for c in value_changes if c["direction"] == "down"),
-        "other_changes": len(flat) - sum(
-            1 for c in value_changes if c["direction"] in ("up", "down")
-        ),
+        "demand_increases": sum(1 for c in flat if c["direction"] == "up"),
+        "demand_decreases": sum(1 for c in flat if c["direction"] == "down"),
+        "other_changes": sum(1 for c in flat if c["direction"] not in ("up", "down")),
     }
     return {"summary": summary, "added": added, "removed": removed, "changed": changed}
 
@@ -92,11 +87,11 @@ def format_diff(diff: dict, limit: int = 25) -> list[str]:
     s = diff["summary"]
     lines = [
         f"added={s['added']} removed={s['removed']} pets_changed={s['pets_changed']} "
-        f"value_increases={s['value_increases']} value_decreases={s['value_decreases']} "
+        f"demand_increases={s['demand_increases']} demand_decreases={s['demand_decreases']} "
         f"other_changes={s['other_changes']}"
     ]
     for p in diff["added"][:limit]:
-        lines.append(f"  + ADDED   {p['name']} (value {p.get('listed_value')})")
+        lines.append(f"  + ADDED   {p['name']} (demand {p.get('demand')})")
     for p in diff["removed"][:limit]:
         lines.append(f"  - REMOVED {p['name']}")
     shown = 0
@@ -200,12 +195,12 @@ def format_history(history_dir: Path, limit: int = 10, pet: str | None = None) -
                 for p in s.get("pets", []):
                     if _matches(pet, p["id"], p["name"]):
                         found = True
-                        lines.append(f"  {ts}  baseline: values={p['values']} demand={p['demand']}")
+                        lines.append(f"  {ts}  baseline: demand={p['demand']}")
                 continue
             for p in s.get("added", []):
                 if _matches(pet, p["id"], p["name"]):
                     found = True
-                    lines.append(f"  {ts}  ADDED (value {p.get('listed_value')})")
+                    lines.append(f"  {ts}  ADDED (demand {p.get('demand')})")
             for p in s.get("removed", []):
                 if _matches(pet, p["id"], p["name"]):
                     found = True
@@ -226,7 +221,7 @@ def format_history(history_dir: Path, limit: int = 10, pet: str | None = None) -
         lines.append(
             f"  {s.get('timestamp')}  {s.get('type'):5}  pets={s.get('total_pets')}  "
             f"+{sm.get('added', 0)} -{sm.get('removed', 0)}  "
-            f"up={sm.get('value_increases', 0)} down={sm.get('value_decreases', 0)} "
+            f"up={sm.get('demand_increases', 0)} down={sm.get('demand_decreases', 0)} "
             f"other={sm.get('other_changes', 0)}"
         )
     latest = snaps[-1]
