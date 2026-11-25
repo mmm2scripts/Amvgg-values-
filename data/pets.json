@@ -1,0 +1,10 @@
+{
+  "source": {
+    "name": "AMVGG",
+    "url": "https://amvgg.com/values/pets"
+  },
+  "last_updated": null,
+  "total_pets": 0,
+  "content_hash": null,
+  "pets": []
+}
