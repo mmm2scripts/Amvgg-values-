@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head><title>Pets - Adopt Me Values</title>
+<script>window.__SOMETHING__ = {"note":"scripts must be ignored by the parser"};</script>
+</head>
+<body>
+<!--
+  SYNTHETIC TEST FIXTURE. The HTML structure below is INVENTED for unit tests.
+  Only the visible text pattern ("<Name> Value <n> Demand <stars> F R N M <ago>")
+  and a few names/values were observed on the real https://amvgg.com/values/pets.
+  The real markup (classes, images, scripts) has NOT been inspected.
+-->
+<header><h1>Pet Values</h1><p>803+ pets with up-to-date values &amp; demand</p></header>
+<main>
+  <div class="list">
+    <!-- structure A: everything in one block, image beside the text -->
+    <div class="item"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" data-src="/img/shadow-dragon.png"><div>Shadow Dragon Value 3.775 Demand ★★★ F R N M 17 days ago</div></div>
+    <!-- structure B: fields split across inline elements, absolute image URL -->
+    <div class="item"><img src="https://cdn.example.test/giraffe.webp"><h3>Giraffe</h3><span>Value</span><span>2.59</span><span>Demand</span><span>★★★</span><span>F</span><span>R</span><span>N</span><span>M</span><time>17 days ago</time></div>
+    <!-- structure C: no image at all, 2-star demand -->
+    <div class="item"><p>Owl Value 1.355 Demand ★★ ☆ F R N M 17 days ago</p></div>
+    <!-- structure D: 1-star demand, comma value -->
+    <div class="item"><p>Mini Pig Value 1,250.5 Demand ★ ☆☆ F R N M 1 day ago</p></div>
+    <!-- structure E: unparseable value must become null -->
+    <div class="item"><p>Mystery Pet Value N/A Demand ★★ ☆ F R N M 2 days ago</p></div>
+    <!-- structure F: srcset-only image -->
+    <div class="item"><img srcset="/img/cow-1x.png 1x, /img/cow-2x.png 2x"><span>Cow Value 0.2225 Demand ★★★ F R N M 20 hours ago</span></div>
+  </div>
+  <p>Showing all 6 pets</p>
+</main>
+<footer>AMVGG.COM Your trusted source</footer>
+</body>
+</html>
