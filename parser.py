@@ -171,10 +171,10 @@ def validate_records(pets: list[dict]) -> list[str]:
         if not p.get("name"):
             errors.append(f"pet {p.get('id')!r} has empty name")
     with_demand = sum(1 for p in pets if p.get("demand_stars") is not None)
-    if with_demand / len(pets) < config.MIN_VALUE_COVERAGE:
+    if with_demand / len(pets) < config.MIN_DEMAND_COVERAGE:
         errors.append(
             f"only {with_demand}/{len(pets)} pets have a demand rating "
-            f"(< {config.MIN_VALUE_COVERAGE:.0%}); page structure may have changed"
+            f"(< {config.MIN_DEMAND_COVERAGE:.0%}); page structure may have changed"
         )
     return errors
 
