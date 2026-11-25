@@ -91,6 +91,10 @@ class ParserTests(unittest.TestCase):
     def test_inspect_report_runs(self):
         report = page_parser.inspect_html(FIXTURE, BASE)
         self.assertIn("Pet cards found by text pattern: 6", report)
+        # embedded Next.js payload is decoded and shown around the first pet name
+        self.assertIn("Embedded page data", report)
+        self.assertIn('First occurrence of \'Shadow Dragon\'', report)
+        self.assertIn("synthetic", report)
 
 
 if __name__ == "__main__":
