@@ -1,4 +1,4 @@
-"""HTML -> pet records.
+"""HTML -> pet records (name + demand only).
 
 What this parser is built on
 ----------------------------
@@ -10,21 +10,20 @@ text*: every pet appears as
 and the page ends with "Showing all <N> pets". The real HTML markup (classes,
 ids, scripts, JSON blobs) could NOT be inspected when this was written, so the
 parser deliberately does not rely on any CSS class or element name. It finds the
-smallest element whose visible text matches the pattern above, then looks for an
-<img> inside that card.
+smallest element whose visible text matches the pattern above.
+
+The "Value <number>" part is still needed to *recognise* a card, but the number
+itself is not read or stored. Each record contains only:
+
+    id, name, demand ("3/5"), demand_stars (3)
 
 Run `python scraper.py --inspect` to see the real markup and extend this file.
-
-Fields the list page does not expose (rarity, trend, fly/ride/fly_ride/neon/
-mega_neon values) are always null. Nothing is guessed.
 """
 from __future__ import annotations
 
 import json
-import math
 import re
 from dataclasses import dataclass, field
-from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup, Tag
 
@@ -61,38 +60,11 @@ def slugify(name: str) -> str:
     return slug or "pet"
 
 
-def _parse_number(raw: str) -> float | None:
-    try:
-        value = float(raw.replace(",", "").strip())
-    except ValueError:
-        return None
-    if not math.isfinite(value) or value < 0:
-        return None
-    return value
-
-
 def _parse_demand(raw: str) -> tuple[str | None, int | None]:
     filled, empty = raw.count("★"), raw.count("☆")
     if filled + empty == 0:
         return None, None
     return f"{filled}/{filled + empty}", filled
-
-
-def _image_url(card: Tag, base_url: str) -> str | None:
-    img = card.find("img")
-    if img is None:
-        return None
-    candidates = [img.get("data-src"), img.get("data-lazy-src")]
-    src = img.get("src")
-    if src and not src.startswith("data:"):
-        candidates.append(src)
-    srcset = img.get("srcset") or img.get("data-srcset")
-    if srcset:
-        candidates.append(srcset.split(",")[0].strip().split(" ")[0])
-    for cand in candidates:
-        if cand and not cand.startswith("data:"):
-            return urljoin(base_url, cand.strip())
-    return None
 
 
 def _clean_soup(html: str) -> BeautifulSoup:
@@ -132,8 +104,7 @@ def _find_cards(soup: BeautifulSoup) -> list[tuple[Tag, re.Match]]:
         if not any(isinstance(d, Tag) and id(d) in ids for d in el.descendants)
     ]
 
-    # Climb to the largest ancestor that still contains exactly one pet, so an
-    # <img> sitting beside the text block is included in the card.
+    # Climb to the largest ancestor that still contains exactly one pet.
     counts: dict[int, int] = {}
     for el, _ in innermost:
         for anc in el.parents:
@@ -161,12 +132,8 @@ def parse_page(html: str, base_url: str = config.SOURCE_URL) -> ParseResult:
     pets: list[dict] = []
     seen: dict[str, int] = {}
 
-    for card, m in cards:
+    for _card, m in cards:
         name = _norm(m.group("name"))
-        raw_value = m.group("value")
-        value = _parse_number(raw_value)
-        if value is None:
-            warnings.append(f"{name!r}: unparseable value {raw_value!r} -> null")
         demand, stars = _parse_demand(m.group("demand"))
 
         pid = slugify(name)
@@ -175,21 +142,15 @@ def parse_page(html: str, base_url: str = config.SOURCE_URL) -> ParseResult:
             warnings.append(f"duplicate pet name {name!r}; id suffixed")
             pid = f"{pid}-{seen[pid]}"
 
-        values = {k: None for k in config.VALUE_FIELDS}
-        if config.ASSUME_LISTED_VALUE_IS_REGULAR:
-            values["regular"] = value
+        if stars is None:
+            warnings.append(f"{name!r}: no demand rating found -> null")
 
         pets.append(
             {
                 "id": pid,
                 "name": name,
-                "rarity": None,        # not present on the list page
-                "listed_value": value,  # exactly the number the page labels "Value"
-                "values": values,
-                "demand": demand,
-                "demand_stars": stars,
-                "trend": None,         # not present on the list page
-                "image_url": _image_url(card, base_url),
+                "demand": demand,        # e.g. "3/5"
+                "demand_stars": stars,   # e.g. 3
             }
         )
 
@@ -209,13 +170,10 @@ def validate_records(pets: list[dict]) -> list[str]:
     for p in pets:
         if not p.get("name"):
             errors.append(f"pet {p.get('id')!r} has empty name")
-        for k, v in (p.get("values") or {}).items():
-            if v is not None and (not isinstance(v, (int, float)) or v < 0):
-                errors.append(f"{p['name']!r}: invalid value for {k}: {v!r}")
-    with_value = sum(1 for p in pets if p.get("listed_value") is not None)
-    if with_value / len(pets) < config.MIN_VALUE_COVERAGE:
+    with_demand = sum(1 for p in pets if p.get("demand_stars") is not None)
+    if with_demand / len(pets) < config.MIN_VALUE_COVERAGE:
         errors.append(
-            f"only {with_value}/{len(pets)} pets have a numeric value "
+            f"only {with_demand}/{len(pets)} pets have a demand rating "
             f"(< {config.MIN_VALUE_COVERAGE:.0%}); page structure may have changed"
         )
     return errors
@@ -297,7 +255,7 @@ def inspect_html(html: str, base_url: str = config.SOURCE_URL) -> str:
         )
 
     # Where does the page keep its data? Show the embedded Next.js payload around
-    # the first pets so the variant values (if present) can be located.
+    # the first pets so other fields (if present) can be located.
     out.append("\n== Embedded page data (Next.js payload) ==")
     try:
         flight = _flight_text(raw)
