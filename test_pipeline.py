@@ -18,15 +18,18 @@ FIXTURE = (ROOT / "tests" / "fixtures" / "sample_pets.html").read_text(encoding=
 
 
 def make_pets(n=150, bump=None, drop=None):
-    """Build a realistic-size synthetic page: n cards + the declared-total footer."""
+    """Build a realistic-size synthetic page: n cards + the declared-total footer.
+
+    bump maps pet index -> demand stars (out of 3); every other pet has 2 stars.
+    """
     cards = []
     for i in range(n):
         if drop and i in drop:
             continue
-        v = round(1 + i * 0.01, 4)
-        if bump and i in bump:
-            v = bump[i]
-        cards.append(f'<div><p>Pet Number {i} Value {v} Demand ★★ ☆ F R N M 3 days ago</p></div>')
+        v = round(1 + i * 0.01, 4)  # only used so the card text matches; never stored
+        stars = bump[i] if bump and i in bump else 2
+        s = "★" * stars + "☆" * (3 - stars)
+        cards.append(f'<div><p>Pet Number {i} Value {v} Demand {s} F R N M 3 days ago</p></div>')
     total = n - (len(drop) if drop else 0)
     return "<html><body>" + "".join(cards) + f"<p>Showing all {total} pets</p></body></html>"
 
@@ -73,18 +76,17 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(self.pets_file.read_bytes(), before)
         self.assertEqual(len(self.snaps()), 1)
 
-    def test_value_change_writes_delta_snapshot(self):
+    def test_demand_change_writes_delta_snapshot(self):
         run(self.dir, make_pets())
-        r = run(self.dir, make_pets(bump={0: 9.99, 1: 0.5}))
+        r = run(self.dir, make_pets(bump={0: 3, 1: 1}))
         self.assertEqual(r.returncode, 0, r.stdout)
         snaps = self.snaps()
         self.assertEqual(len(snaps), 2)
         delta = json.loads(snaps[-1].read_text())
         self.assertEqual(delta["type"], "delta")
-        # pet 0: 1.00 -> 9.99 (up); pet 1: 1.01 -> 0.5 (down); each counts on
-        # both values.regular and listed_value is not a "values.*" field.
-        self.assertEqual(delta["summary"]["value_increases"], 1)
-        self.assertEqual(delta["summary"]["value_decreases"], 1)
+        # pet 0: demand 2 -> 3 stars (up); pet 1: 2 -> 1 stars (down)
+        self.assertEqual(delta["summary"]["demand_increases"], 1)
+        self.assertEqual(delta["summary"]["demand_decreases"], 1)
         dirs = {c["direction"] for e in delta["changed"] for c in e["changes"]}
         self.assertEqual(dirs, {"up", "down"})
 
@@ -143,7 +145,7 @@ class PipelineTests(unittest.TestCase):
 
     def test_history_command(self):
         run(self.dir, make_pets())
-        run(self.dir, make_pets(bump={0: 9.99}))
+        run(self.dir, make_pets(bump={0: 3}))
         env = dict(os.environ, AMVGG_DATA_DIR=str(self.dir / "data"))
         out = subprocess.run([sys.executable, str(ROOT / "scraper.py"), "--history"],
                              capture_output=True, text=True, env=env).stdout
@@ -151,7 +153,7 @@ class PipelineTests(unittest.TestCase):
         out = subprocess.run([sys.executable, str(ROOT / "scraper.py"), "--history", "--pet", "Pet Number 0"],
                              capture_output=True, text=True, env=env).stdout
         self.assertIn("baseline", out)
-        self.assertIn("9.99", out)
+        self.assertIn("2 -> 3", out)
 
     def test_inspect_writes_report(self):
         html_path = self.dir / "page.html"
@@ -165,34 +167,31 @@ class PipelineTests(unittest.TestCase):
 
 
 class DiffTests(unittest.TestCase):
-    def pet(self, pid, value, demand="2/3"):
-        return {"id": pid, "name": pid.title(), "rarity": None, "listed_value": value,
-                "values": {"regular": value, "fly": None, "ride": None, "fly_ride": None,
-                           "neon": None, "mega_neon": None},
-                "demand": demand, "demand_stars": 2, "trend": None, "image_url": None}
+    def pet(self, pid, stars=2, total=3):
+        return {"id": pid, "name": pid.title(),
+                "demand": f"{stars}/{total}", "demand_stars": stars}
 
-    def test_diff_directions_and_pct(self):
-        d = history.diff_pets([self.pet("a", 1.0), self.pet("b", 2.0)],
-                              [self.pet("a", 1.5), self.pet("b", 1.0)])
-        # listed_value + values.regular both move; check the regular one
-        a = next(c for c in d["changed"][0]["changes"] if c["field"] == "values.regular")
-        self.assertEqual(a["direction"], "up")
-        self.assertEqual(a["pct"], 50.0)
-        b = next(c for c in d["changed"][1]["changes"] if c["field"] == "values.regular")
+    def test_diff_directions(self):
+        d = history.diff_pets([self.pet("a", 2), self.pet("b", 2)],
+                              [self.pet("a", 3), self.pet("b", 1)])
+        a = d["changed"][0]["changes"][0]
+        self.assertEqual((a["field"], a["direction"], a["old"], a["new"]), ("demand_stars", "up", 2, 3))
+        b = d["changed"][1]["changes"][0]
         self.assertEqual(b["direction"], "down")
-        self.assertEqual(b["pct"], -50.0)
+        self.assertEqual(d["summary"]["demand_increases"], 1)
+        self.assertEqual(d["summary"]["demand_decreases"], 1)
+        self.assertEqual(d["summary"]["other_changes"], 0)
 
-    def test_demand_change_is_other_change(self):
-        d = history.diff_pets([self.pet("a", 1.0, "2/3")], [self.pet("a", 1.0, "3/3")])
-        self.assertEqual(d["summary"]["other_changes"], 1)
-        self.assertEqual(d["summary"]["value_increases"], 0)
+    def test_each_demand_change_counts_once(self):
+        d = history.diff_pets([self.pet("a", 2)], [self.pet("a", 3)])
+        self.assertEqual(len(d["changed"][0]["changes"]), 1)
 
     def test_hash_is_order_independent(self):
-        a, b = self.pet("a", 1.0), self.pet("b", 2.0)
+        a, b = self.pet("a", 1), self.pet("b", 2)
         self.assertEqual(storage.content_hash([a, b]), storage.content_hash([b, a]))
 
     def test_no_diff_when_identical(self):
-        p = [self.pet("a", 1.0)]
+        p = [self.pet("a", 1)]
         self.assertFalse(history.has_changes(history.diff_pets(p, p)))
 
 
