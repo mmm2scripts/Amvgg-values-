@@ -1,4 +1,4 @@
-"""Central configuration for the AMVGG pet-value scraper.
+"""Central configuration for the AMVGG pet-demand scraper.
 
 Everything tunable lives here so the other modules stay free of magic numbers.
 """
@@ -41,24 +41,10 @@ MIN_REQUEST_INTERVAL = 2.0    # minimum seconds between any two requests
 RETRY_STATUS = {429, 500, 502, 503, 504}
 
 # --------------------------------------------------------------------------- #
-# Record schema
-# --------------------------------------------------------------------------- #
-# Every pet record always contains all of these keys; unknown ones are null.
-VALUE_FIELDS = ("regular", "fly", "ride", "fly_ride", "neon", "mega_neon")
-
-# UNVERIFIED ASSUMPTION.
-# The AMVGG list page shows exactly one number per pet, labelled "Value".
-# It does not say which variant that number belongs to. We store it as the
-# "regular" value because that is the conventional default, but this has NOT
-# been confirmed. Set to False to leave values.regular null and keep the number
-# only in "listed_value".
-ASSUME_LISTED_VALUE_IS_REGULAR = True
-
-# --------------------------------------------------------------------------- #
 # Validation / completeness
 # --------------------------------------------------------------------------- #
 MIN_PETS_ABSOLUTE = 100       # fewer than this is treated as a failed scrape
 MAX_DROP_RATIO = 0.20         # reject if count falls >20% vs the previous run
-MIN_VALUE_COVERAGE = 0.98     # at least this share of pets must have a numeric value
+MIN_DEMAND_COVERAGE = 0.98    # at least this share of pets must have a demand rating
 MAX_CARD_TEXT = 400           # a single pet card's visible text is far shorter
 MAX_NAME_LEN = 100
