@@ -20,6 +20,7 @@ mega_neon values) are always null. Nothing is guessed.
 """
 from __future__ import annotations
 
+import json
 import math
 import re
 from dataclasses import dataclass, field
@@ -226,6 +227,27 @@ def validate_records(pets: list[dict]) -> list[str]:
 _JSON_HINTS = ("__NEXT_DATA__", "__NUXT__", "self.__next_f", "window.__", "application/json")
 
 
+_FLIGHT_RE = re.compile(r"^\s*self\.__next_f\.push\((\[.*\])\)\s*;?\s*$", re.DOTALL)
+
+
+def _flight_text(raw: BeautifulSoup) -> str:
+    """Concatenate Next.js `self.__next_f.push([1,"..."])` string chunks (the page's embedded data)."""
+    parts: list[str] = []
+    for s in raw.find_all("script"):
+        if s.get("src"):
+            continue
+        m = _FLIGHT_RE.match(s.string or s.get_text() or "")
+        if not m:
+            continue
+        try:
+            arr = json.loads(m.group(1))
+        except ValueError:
+            continue
+        if isinstance(arr, list) and len(arr) >= 2 and arr[0] == 1 and isinstance(arr[1], str):
+            parts.append(arr[1])
+    return "".join(parts)
+
+
 def inspect_html(html: str, base_url: str = config.SOURCE_URL) -> str:
     """Human-readable report of the page's real structure, for extending the parser."""
     raw = BeautifulSoup(html, "html.parser")
@@ -265,7 +287,7 @@ def inspect_html(html: str, base_url: str = config.SOURCE_URL) -> str:
     out.append(f"Declared total on page: {dm.group(0) if dm else 'NOT FOUND'}")
     for idx, (card, _) in enumerate(cards[:2], 1):
         out.append(f"\n-- Card {idx}: <{card.name}> attrs={dict(card.attrs)}")
-        out.append(card.prettify()[:3000])
+        out.append(card.prettify()[:9000])
         links = [a.get("href") for a in card.find_all("a")]
         out.append(f"links inside card: {links}")
     if not cards:
@@ -273,4 +295,25 @@ def inspect_html(html: str, base_url: str = config.SOURCE_URL) -> str:
             "No cards matched. The page may be JS-rendered, blocked, or restructured.\n"
             "First 1500 chars of visible text:\n" + page_text[:1500]
         )
+
+    # Where does the page keep its data? Show the embedded Next.js payload around
+    # the first pets so the variant values (if present) can be located.
+    out.append("\n== Embedded page data (Next.js payload) ==")
+    try:
+        flight = _flight_text(raw)
+        out.append(f"Decoded payload length: {len(flight)} chars")
+        names = [m.group("name").strip() for _, m in cards[:2]]
+        shown = 0
+        for name in names:
+            idx = flight.find(name)
+            out.append(f"\n-- First occurrence of {name!r} at index {idx}")
+            if idx >= 0:
+                out.append(flight[max(0, idx - 700): idx + 2300])
+                shown += 1
+        if shown == 0 and flight:
+            out.append("Pet names not found in payload; first 3000 chars:\n" + flight[:3000])
+        if not flight:
+            out.append("(no Next.js payload chunks found)")
+    except Exception as exc:  # noqa: BLE001 - diagnostics must never crash
+        out.append(f"(payload extraction failed: {exc})")
     return "\n".join(out)
