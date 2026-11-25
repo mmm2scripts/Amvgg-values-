@@ -1,6 +1,6 @@
 """Parser tests run against a SYNTHETIC fixture (see the comment inside it).
 
-They prove the parser logic works on the verified text pattern. They do NOT
+They prove the parser logic works (pet name + demand only) on the verified text pattern. They do NOT
 prove it matches AMVGG's real markup; only a live run can do that.
 """
 import sys
@@ -31,39 +31,24 @@ class ParserTests(unittest.TestCase):
             ["Shadow Dragon", "Giraffe", "Owl", "Mini Pig", "Mystery Pet", "Cow"],
         )
 
-    def test_values_and_demand(self):
-        self.assertEqual(self.by_name["Shadow Dragon"]["listed_value"], 3.775)
+    def test_name_and_demand(self):
         self.assertEqual(self.by_name["Shadow Dragon"]["demand"], "3/3")
         self.assertEqual(self.by_name["Owl"]["demand"], "2/3")
         self.assertEqual(self.by_name["Owl"]["demand_stars"], 2)
         self.assertEqual(self.by_name["Mini Pig"]["demand"], "1/3")
-        self.assertEqual(self.by_name["Mini Pig"]["listed_value"], 1250.5)
 
     def test_split_inline_elements(self):
         g = self.by_name["Giraffe"]
-        self.assertEqual(g["listed_value"], 2.59)
         self.assertEqual(g["demand"], "3/3")
 
-    def test_unparseable_value_is_null_with_warning(self):
-        self.assertIsNone(self.by_name["Mystery Pet"]["listed_value"])
-        self.assertIsNone(self.by_name["Mystery Pet"]["values"]["regular"])
-        self.assertTrue(any("Mystery Pet" in w for w in self.result.warnings))
+    def test_unparseable_value_does_not_matter(self):
+        # The "Value" number is only used to recognise a card; it is never read.
+        self.assertEqual(self.by_name["Mystery Pet"]["demand"], "2/3")
+        self.assertFalse(any("Mystery Pet" in w for w in self.result.warnings))
 
-    def test_unavailable_fields_are_null(self):
+    def test_records_contain_only_name_and_demand(self):
         for p in self.result.pets:
-            self.assertIsNone(p["rarity"])
-            self.assertIsNone(p["trend"])
-            for k in ("fly", "ride", "fly_ride", "neon", "mega_neon"):
-                self.assertIsNone(p["values"][k], k)
-
-    def test_regular_mirrors_listed_value_when_assumption_enabled(self):
-        self.assertEqual(self.by_name["Owl"]["values"]["regular"], 1.355)
-
-    def test_images(self):
-        self.assertEqual(self.by_name["Shadow Dragon"]["image_url"], "https://amvgg.com/img/shadow-dragon.png")
-        self.assertEqual(self.by_name["Giraffe"]["image_url"], "https://cdn.example.test/giraffe.webp")
-        self.assertIsNone(self.by_name["Owl"]["image_url"])
-        self.assertEqual(self.by_name["Cow"]["image_url"], "https://amvgg.com/img/cow-1x.png")
+            self.assertEqual(set(p), {"id", "name", "demand", "demand_stars"})
 
     def test_script_content_ignored(self):
         self.assertFalse(any("SOMETHING" in p["name"] for p in self.result.pets))
@@ -78,10 +63,14 @@ class ParserTests(unittest.TestCase):
         ids = [p["id"] for p in res.pets]
         self.assertEqual(len(ids), len(set(ids)))
 
-    def test_record_validation_flags_low_value_coverage(self):
-        # 5 of 6 pets have a value -> below the 98% coverage threshold
-        errors = page_parser.validate_records(self.result.pets)
-        self.assertTrue(any("numeric value" in e for e in errors))
+    def test_record_validation_flags_missing_demand(self):
+        # Strip every star -> no pet has a demand rating -> below the coverage threshold
+        res = page_parser.parse_page(FIXTURE.replace("★", "").replace("☆", ""), BASE)
+        errors = page_parser.validate_records(res.pets)
+        self.assertTrue(any("demand rating" in e for e in errors))
+
+    def test_record_validation_passes_on_good_fixture(self):
+        self.assertEqual(page_parser.validate_records(self.result.pets), [])
 
     def test_no_cards_on_unrelated_html(self):
         res = page_parser.parse_page("<html><body><p>Just a moment...</p></body></html>", BASE)
