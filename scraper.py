@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AMVGG pet-value scraper.
+"""AMVGG pet-demand scraper (pet name + demand only).
 
     python scraper.py              scrape, diff, write pets.json + history
     python scraper.py --dry-run    do everything except write files
@@ -224,9 +224,9 @@ def cmd_scrape(args: argparse.Namespace) -> int:
 def cmd_check(args: argparse.Namespace) -> int:
     previous = storage.load_pets()
     result, errors = parse_and_validate(args, previous)
-    with_img = sum(1 for p in result.pets if p["image_url"])
-    log.info("Parsed %d pets; page declares %s; %d with an image URL",
-             len(result.pets), result.declared_total, with_img)
+    with_demand = sum(1 for p in result.pets if p["demand_stars"] is not None)
+    log.info("Parsed %d pets; page declares %s; %d with a demand rating",
+             len(result.pets), result.declared_total, with_demand)
     if previous:
         log.info("Stored data has %d pets (last updated %s)",
                  previous["total_pets"], previous.get("last_updated"))
@@ -262,7 +262,7 @@ def write_step_summary(diff: dict, payload: dict) -> None:
 # Entry point
 # --------------------------------------------------------------------------- #
 def build_arg_parser() -> argparse.ArgumentParser:
-    ap = argparse.ArgumentParser(description="Scrape Adopt Me pet values from amvgg.com")
+    ap = argparse.ArgumentParser(description="Scrape Adopt Me pet demand from amvgg.com")
     mode = ap.add_mutually_exclusive_group()
     mode.add_argument("--dry-run", action="store_true", help="scrape and diff but write nothing")
     mode.add_argument("--history", action="store_true", help="print recorded history and exit")
