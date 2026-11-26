@@ -1,0 +1,75 @@
+{
+  "type": "delta",
+  "timestamp": "2026-11-26T21:38:46Z",
+  "content_hash": "sha256:f2b1932e2590ea80d9c63b64e636c9d98679fea919c0ec7dcead63a9bccc48e3",
+  "previous_hash": "sha256:5d679e227af66e0e9b1a30d45d7d1894f9fb51e80cbc355d933001c389e2217a",
+  "total_pets": 803,
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "pets_changed": 4,
+    "demand_increases": 0,
+    "demand_decreases": 4,
+    "other_changes": 0
+  },
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "id": "tortoiseshell-guinea-pig",
+      "name": "Tortoiseshell Guinea Pig",
+      "changes": [
+        {
+          "field": "demand_stars",
+          "old": 3,
+          "new": 2,
+          "direction": "down",
+          "delta": -1,
+          "pct": -33.33
+        }
+      ]
+    },
+    {
+      "id": "mechapup",
+      "name": "Mechapup",
+      "changes": [
+        {
+          "field": "demand_stars",
+          "old": 3,
+          "new": 2,
+          "direction": "down",
+          "delta": -1,
+          "pct": -33.33
+        }
+      ]
+    },
+    {
+      "id": "emperor-gorilla",
+      "name": "Emperor Gorilla",
+      "changes": [
+        {
+          "field": "demand_stars",
+          "old": 3,
+          "new": 2,
+          "direction": "down",
+          "delta": -1,
+          "pct": -33.33
+        }
+      ]
+    },
+    {
+      "id": "dango-penguins",
+      "name": "Dango Penguins",
+      "changes": [
+        {
+          "field": "demand_stars",
+          "old": 3,
+          "new": 2,
+          "direction": "down",
+          "delta": -1,
+          "pct": -33.33
+        }
+      ]
+    }
+  ]
+}

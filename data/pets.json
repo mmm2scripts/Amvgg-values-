@@ -3,9 +3,9 @@
     "name": "AMVGG",
     "url": "https://amvgg.com/values/pets"
   },
-  "last_updated": "2026-11-25T21:45:19Z",
+  "last_updated": "2026-11-26T21:38:46Z",
   "total_pets": 803,
-  "content_hash": "sha256:5d679e227af66e0e9b1a30d45d7d1894f9fb51e80cbc355d933001c389e2217a",
+  "content_hash": "sha256:f2b1932e2590ea80d9c63b64e636c9d98679fea919c0ec7dcead63a9bccc48e3",
   "pets": [
     {
       "id": "bat-dragon",
@@ -44,14 +44,14 @@
       "demand_stars": 3
     },
     {
-      "id": "crow",
-      "name": "Crow",
+      "id": "balloon-unicorn",
+      "name": "Balloon Unicorn",
       "demand": "3/3",
       "demand_stars": 3
     },
     {
-      "id": "balloon-unicorn",
-      "name": "Balloon Unicorn",
+      "id": "crow",
+      "name": "Crow",
       "demand": "3/3",
       "demand_stars": 3
     },
@@ -98,14 +98,14 @@
       "demand_stars": 3
     },
     {
-      "id": "cryptid",
-      "name": "Cryptid",
+      "id": "orchid-butterfly",
+      "name": "Orchid Butterfly",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "orchid-butterfly",
-      "name": "Orchid Butterfly",
+      "id": "cryptid",
+      "name": "Cryptid",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -182,14 +182,14 @@
       "demand_stars": 2
     },
     {
-      "id": "cabbit",
-      "name": "Cabbit",
+      "id": "alpaca",
+      "name": "Alpaca",
       "demand": "3/3",
       "demand_stars": 3
     },
     {
-      "id": "alpaca",
-      "name": "Alpaca",
+      "id": "cabbit",
+      "name": "Cabbit",
       "demand": "3/3",
       "demand_stars": 3
     },
@@ -200,12 +200,6 @@
       "demand_stars": 3
     },
     {
-      "id": "monkey-king",
-      "name": "Monkey King",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "sugar-glider",
       "name": "Sugar Glider",
       "demand": "3/3",
@@ -214,6 +208,12 @@
     {
       "id": "pelican",
       "name": "Pelican",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "monkey-king",
+      "name": "Monkey King",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -286,8 +286,8 @@
     {
       "id": "tortoiseshell-guinea-pig",
       "name": "Tortoiseshell Guinea Pig",
-      "demand": "3/3",
-      "demand_stars": 3
+      "demand": "2/3",
+      "demand_stars": 2
     },
     {
       "id": "bush-elephant",
@@ -380,8 +380,8 @@
       "demand_stars": 3
     },
     {
-      "id": "sea-slug",
-      "name": "Sea Slug",
+      "id": "moonbeam-peacock",
+      "name": "Moonbeam Peacock",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -392,14 +392,14 @@
       "demand_stars": 3
     },
     {
-      "id": "mechapup",
-      "name": "Mechapup",
-      "demand": "3/3",
-      "demand_stars": 3
+      "id": "sea-slug",
+      "name": "Sea Slug",
+      "demand": "2/3",
+      "demand_stars": 2
     },
     {
-      "id": "moonbeam-peacock",
-      "name": "Moonbeam Peacock",
+      "id": "mechapup",
+      "name": "Mechapup",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -412,18 +412,18 @@
     {
       "id": "emperor-gorilla",
       "name": "Emperor Gorilla",
-      "demand": "3/3",
-      "demand_stars": 3
-    },
-    {
-      "id": "matcha-cat",
-      "name": "Matcha Cat",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
       "id": "sugar-axolotl",
       "name": "Sugar Axolotl",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "matcha-cat",
+      "name": "Matcha Cat",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -458,26 +458,8 @@
       "demand_stars": 2
     },
     {
-      "id": "goat",
-      "name": "Goat",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "strawberry-penguin",
-      "name": "Strawberry Penguin",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "vampire-dragon",
       "name": "Vampire Dragon",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "bald-eagle",
-      "name": "Bald Eagle",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -488,14 +470,20 @@
       "demand_stars": 3
     },
     {
-      "id": "flash-weasel",
-      "name": "Flash Weasel",
+      "id": "bald-eagle",
+      "name": "Bald Eagle",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "haetyphoon",
-      "name": "Haetyphoon",
+      "id": "goat",
+      "name": "Goat",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "strawberry-penguin",
+      "name": "Strawberry Penguin",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -512,26 +500,20 @@
       "demand_stars": 2
     },
     {
+      "id": "diamond-amazon",
+      "name": "Diamond Amazon",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
       "id": "midnight-dragon",
       "name": "Midnight Dragon",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "caelum-cervi",
-      "name": "Caelum Cervi",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "sheeeeep",
-      "name": "Sheeeeep",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "diamond-amazon",
-      "name": "Diamond Amazon",
+      "id": "silverback-gorilla",
+      "name": "Silverback Gorilla",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -542,8 +524,32 @@
       "demand_stars": 2
     },
     {
-      "id": "silverback-gorilla",
-      "name": "Silverback Gorilla",
+      "id": "caelum-cervi",
+      "name": "Caelum Cervi",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "haetyphoon",
+      "name": "Haetyphoon",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "sheeeeep",
+      "name": "Sheeeeep",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "flash-weasel",
+      "name": "Flash Weasel",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "tri-horned-treehopper",
+      "name": "Tri-horned Treehopper",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -560,12 +566,6 @@
       "demand_stars": 2
     },
     {
-      "id": "tri-horned-treehopper",
-      "name": "Tri-horned Treehopper",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "many-mackerel",
       "name": "Many Mackerel",
       "demand": "2/3",
@@ -574,12 +574,6 @@
     {
       "id": "sakura-spirit",
       "name": "Sakura Spirit",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "nessie",
-      "name": "Nessie",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -596,14 +590,14 @@
       "demand_stars": 2
     },
     {
-      "id": "zombie-buffalo",
-      "name": "Zombie Buffalo",
+      "id": "nessie",
+      "name": "Nessie",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "copycat",
-      "name": "Copycat",
+      "id": "honey-badger",
+      "name": "Honey Badger",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -620,14 +614,8 @@
       "demand_stars": 3
     },
     {
-      "id": "honey-badger",
-      "name": "Honey Badger",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "groundhog",
-      "name": "Groundhog",
+      "id": "zombie-buffalo",
+      "name": "Zombie Buffalo",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -638,8 +626,8 @@
       "demand_stars": 2
     },
     {
-      "id": "phantom-dragon",
-      "name": "Phantom Dragon",
+      "id": "giant-gold-scarab",
+      "name": "Giant Gold Scarab",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -650,8 +638,20 @@
       "demand_stars": 2
     },
     {
-      "id": "giant-gold-scarab",
-      "name": "Giant Gold Scarab",
+      "id": "groundhog",
+      "name": "Groundhog",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "copycat",
+      "name": "Copycat",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "phantom-dragon",
+      "name": "Phantom Dragon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -680,20 +680,14 @@
       "demand_stars": 2
     },
     {
-      "id": "arctic-dusk-dragon",
-      "name": "Arctic Dusk Dragon",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "ring-tailed-lemur",
       "name": "Ring-Tailed Lemur",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "glacier-kitsune",
-      "name": "Glacier Kitsune",
+      "id": "arctic-dusk-dragon",
+      "name": "Arctic Dusk Dragon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -704,20 +698,26 @@
       "demand_stars": 2
     },
     {
+      "id": "glacier-kitsune",
+      "name": "Glacier Kitsune",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
       "id": "fallow-deer",
       "name": "Fallow Deer",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "hero-gibbon",
-      "name": "Hero Gibbon",
+      "id": "diamond-albatross",
+      "name": "Diamond Albatross",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "diamond-albatross",
-      "name": "Diamond Albatross",
+      "id": "hero-gibbon",
+      "name": "Hero Gibbon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -734,14 +734,14 @@
       "demand_stars": 2
     },
     {
-      "id": "brown-bear",
-      "name": "Brown Bear",
+      "id": "glormy-leo",
+      "name": "Glormy Leo",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "glormy-leo",
-      "name": "Glormy Leo",
+      "id": "brown-bear",
+      "name": "Brown Bear",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -758,14 +758,14 @@
       "demand_stars": 2
     },
     {
-      "id": "rose-dragon",
-      "name": "Rose Dragon",
+      "id": "hyena",
+      "name": "Hyena",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "hyena",
-      "name": "Hyena",
+      "id": "rose-dragon",
+      "name": "Rose Dragon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -788,12 +788,6 @@
       "demand_stars": 2
     },
     {
-      "id": "dango-penguins",
-      "name": "Dango Penguins",
-      "demand": "3/3",
-      "demand_stars": 3
-    },
-    {
       "id": "lava-dragon",
       "name": "Lava Dragon",
       "demand": "2/3",
@@ -812,20 +806,20 @@
       "demand_stars": 2
     },
     {
-      "id": "purple-butterfly",
-      "name": "Purple Butterfly",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "pineapple-owl",
       "name": "Pineapple Owl",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "rainbow-dragon",
-      "name": "Rainbow Dragon",
+      "id": "purple-butterfly",
+      "name": "Purple Butterfly",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "dango-penguins",
+      "name": "Dango Penguins",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -836,8 +830,8 @@
       "demand_stars": 2
     },
     {
-      "id": "latte-kitsune",
-      "name": "Latte Kitsune",
+      "id": "rainbow-dragon",
+      "name": "Rainbow Dragon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -848,8 +842,8 @@
       "demand_stars": 2
     },
     {
-      "id": "dragonfruit-fox",
-      "name": "Dragonfruit Fox",
+      "id": "latte-kitsune",
+      "name": "Latte Kitsune",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -860,8 +854,8 @@
       "demand_stars": 2
     },
     {
-      "id": "aestus",
-      "name": "Aestus",
+      "id": "dragonfruit-fox",
+      "name": "Dragonfruit Fox",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -872,8 +866,8 @@
       "demand_stars": 2
     },
     {
-      "id": "solaris",
-      "name": "Solaris",
+      "id": "aestus",
+      "name": "Aestus",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -884,14 +878,14 @@
       "demand_stars": 2
     },
     {
-      "id": "queen-bee",
-      "name": "Queen Bee",
+      "id": "solaris",
+      "name": "Solaris",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "majestic-pony",
-      "name": "Majestic Pony",
+      "id": "queen-bee",
+      "name": "Queen Bee",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -914,6 +908,18 @@
       "demand_stars": 2
     },
     {
+      "id": "majestic-pony",
+      "name": "Majestic Pony",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "flaming-fox",
+      "name": "Flaming Fox",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
       "id": "ice-golem",
       "name": "Ice Golem",
       "demand": "2/3",
@@ -932,32 +938,8 @@
       "demand_stars": 2
     },
     {
-      "id": "flaming-fox",
-      "name": "Flaming Fox",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "frost-phoenix",
-      "name": "Frost Phoenix",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "llama",
       "name": "Llama",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "lavender-dragon",
-      "name": "Lavender Dragon",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "wood-pigeon",
-      "name": "Wood Pigeon",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -968,8 +950,26 @@
       "demand_stars": 2
     },
     {
-      "id": "naughty-mistletroll",
-      "name": "Naughty Mistletroll",
+      "id": "diamond-hamster",
+      "name": "Diamond Hamster",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "wood-pigeon",
+      "name": "Wood Pigeon",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "lavender-dragon",
+      "name": "Lavender Dragon",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "frost-phoenix",
+      "name": "Frost Phoenix",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -980,26 +980,14 @@
       "demand_stars": 2
     },
     {
-      "id": "diamond-hamster",
-      "name": "Diamond Hamster",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "glormy-hound",
       "name": "Glormy Hound",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "candy-hare",
-      "name": "Candy Hare",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "turkey",
-      "name": "Turkey",
+      "id": "naughty-mistletroll",
+      "name": "Naughty Mistletroll",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1010,14 +998,26 @@
       "demand_stars": 2
     },
     {
-      "id": "gaelic-fae",
-      "name": "Gaelic Fae",
+      "id": "lava-wolf",
+      "name": "Lava Wolf",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "lava-wolf",
-      "name": "Lava Wolf",
+      "id": "turkey",
+      "name": "Turkey",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "candy-hare",
+      "name": "Candy Hare",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "royal-corgi",
+      "name": "Royal Corgi",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1028,8 +1028,8 @@
       "demand_stars": 2
     },
     {
-      "id": "royal-corgi",
-      "name": "Royal Corgi",
+      "id": "gaelic-fae",
+      "name": "Gaelic Fae",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1046,24 +1046,6 @@
       "demand_stars": 2
     },
     {
-      "id": "swan",
-      "name": "Swan",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "lamb",
-      "name": "Lamb",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
-      "id": "corn-doggo",
-      "name": "Corn Doggo",
-      "demand": "2/3",
-      "demand_stars": 2
-    },
-    {
       "id": "slime",
       "name": "Slime",
       "demand": "2/3",
@@ -1072,6 +1054,12 @@
     {
       "id": "moonbeam-butterfly",
       "name": "Moonbeam Butterfly",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "lamb",
+      "name": "Lamb",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1088,14 +1076,26 @@
       "demand_stars": 2
     },
     {
-      "id": "silly-duck",
-      "name": "Silly Duck",
+      "id": "corn-doggo",
+      "name": "Corn Doggo",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "swan",
+      "name": "Swan",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
       "id": "golden-penguin",
       "name": "Golden Penguin",
+      "demand": "2/3",
+      "demand_stars": 2
+    },
+    {
+      "id": "silly-duck",
+      "name": "Silly Duck",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1130,14 +1130,14 @@
       "demand_stars": 2
     },
     {
-      "id": "harp-seal",
-      "name": "Harp Seal",
+      "id": "diamond-ladybug",
+      "name": "Diamond Ladybug",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "diamond-ladybug",
-      "name": "Diamond Ladybug",
+      "id": "harp-seal",
+      "name": "Harp Seal",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -1148,16 +1148,16 @@
       "demand_stars": 2
     },
     {
-      "id": "2d-doggy",
-      "name": "2D Doggy",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
       "id": "zombie-wolf",
       "name": "Zombie Wolf",
       "demand": "2/3",
       "demand_stars": 2
+    },
+    {
+      "id": "2d-doggy",
+      "name": "2D Doggy",
+      "demand": "1/3",
+      "demand_stars": 1
     },
     {
       "id": "unicorn",
@@ -1172,14 +1172,14 @@
       "demand_stars": 2
     },
     {
-      "id": "ram",
-      "name": "Ram",
+      "id": "shark",
+      "name": "Shark",
       "demand": "2/3",
       "demand_stars": 2
     },
     {
-      "id": "shark",
-      "name": "Shark",
+      "id": "ram",
+      "name": "Ram",
       "demand": "2/3",
       "demand_stars": 2
     },
@@ -3662,8 +3662,8 @@
       "demand_stars": 1
     },
     {
-      "id": "halloween-blue-scorpion",
-      "name": "Halloween Blue Scorpion",
+      "id": "tarantula",
+      "name": "Tarantula",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3686,8 +3686,8 @@
       "demand_stars": 1
     },
     {
-      "id": "tarantula",
-      "name": "Tarantula",
+      "id": "halloween-blue-scorpion",
+      "name": "Halloween Blue Scorpion",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3728,8 +3728,8 @@
       "demand_stars": 1
     },
     {
-      "id": "emperor-shrimp",
-      "name": "Emperor Shrimp",
+      "id": "urchin",
+      "name": "Urchin",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3746,20 +3746,14 @@
       "demand_stars": 1
     },
     {
-      "id": "mrs-whiskerpips",
-      "name": "Mrs. Whiskerpips",
+      "id": "red-cardinal",
+      "name": "Red Cardinal",
       "demand": "1/3",
       "demand_stars": 1
     },
     {
       "id": "persian-cat",
       "name": "Persian Cat",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
-      "id": "red-cardinal",
-      "name": "Red Cardinal",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3784,6 +3778,12 @@
     {
       "id": "hammerhead-shark",
       "name": "Hammerhead Shark",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
+      "id": "mrs-whiskerpips",
+      "name": "Mrs. Whiskerpips",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3818,20 +3818,20 @@
       "demand_stars": 1
     },
     {
-      "id": "urchin",
-      "name": "Urchin",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
-      "id": "tawny-frogmouth",
-      "name": "Tawny Frogmouth",
+      "id": "emperor-shrimp",
+      "name": "Emperor Shrimp",
       "demand": "1/3",
       "demand_stars": 1
     },
     {
       "id": "black-moon-bear",
       "name": "Black Moon Bear",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
+      "id": "tawny-frogmouth",
+      "name": "Tawny Frogmouth",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3860,20 +3860,8 @@
       "demand_stars": 1
     },
     {
-      "id": "ground-sloth",
-      "name": "Ground Sloth",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
       "id": "angelfish",
       "name": "Angelfish",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
-      "id": "velociraptor",
-      "name": "Velociraptor",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3884,20 +3872,32 @@
       "demand_stars": 1
     },
     {
+      "id": "ground-sloth",
+      "name": "Ground Sloth",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
+      "id": "velociraptor",
+      "name": "Velociraptor",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
       "id": "ghost-wolf",
       "name": "Ghost Wolf",
       "demand": "1/3",
       "demand_stars": 1
     },
     {
-      "id": "black-marlin",
-      "name": "Black Marlin",
+      "id": "ehecatl",
+      "name": "Ehecatl",
       "demand": "1/3",
       "demand_stars": 1
     },
     {
-      "id": "jumpscare",
-      "name": "Jumpscare",
+      "id": "toucan",
+      "name": "Toucan",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -3962,6 +3962,12 @@
       "demand_stars": 1
     },
     {
+      "id": "jumpscare",
+      "name": "Jumpscare",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
       "id": "bullfrog",
       "name": "Bullfrog",
       "demand": "1/3",
@@ -3988,12 +3994,6 @@
     {
       "id": "frankenfeline",
       "name": "Frankenfeline",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
-      "id": "toucan",
-      "name": "Toucan",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -4058,8 +4058,8 @@
       "demand_stars": 1
     },
     {
-      "id": "wren",
-      "name": "Wren",
+      "id": "bakeneko",
+      "name": "Bakeneko",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -4112,20 +4112,14 @@
       "demand_stars": 1
     },
     {
-      "id": "ox",
-      "name": "Ox",
+      "id": "black-marlin",
+      "name": "Black Marlin",
       "demand": "1/3",
       "demand_stars": 1
     },
     {
-      "id": "ehecatl",
-      "name": "Ehecatl",
-      "demand": "1/3",
-      "demand_stars": 1
-    },
-    {
-      "id": "bakeneko",
-      "name": "Bakeneko",
+      "id": "wren",
+      "name": "Wren",
       "demand": "1/3",
       "demand_stars": 1
     },
@@ -4210,6 +4204,12 @@
     {
       "id": "maleo-bird",
       "name": "Maleo Bird",
+      "demand": "1/3",
+      "demand_stars": 1
+    },
+    {
+      "id": "ox",
+      "name": "Ox",
       "demand": "1/3",
       "demand_stars": 1
     },
