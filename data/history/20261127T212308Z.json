@@ -1,0 +1,31 @@
+{
+  "type": "delta",
+  "timestamp": "2026-11-27T21:23:08Z",
+  "content_hash": "sha256:1c6236d7a43c49966d5cdb6aa24826618db3441018737e345be28e6e88b48a05",
+  "previous_hash": "sha256:f2b1932e2590ea80d9c63b64e636c9d98679fea919c0ec7dcead63a9bccc48e3",
+  "total_pets": 805,
+  "summary": {
+    "added": 2,
+    "removed": 0,
+    "pets_changed": 0,
+    "demand_increases": 0,
+    "demand_decreases": 0,
+    "other_changes": 0
+  },
+  "added": [
+    {
+      "id": "tilcayo",
+      "name": "Tilcayo",
+      "demand": "3/3",
+      "demand_stars": 3
+    },
+    {
+      "id": "hooray",
+      "name": "Hooray",
+      "demand": "2/3",
+      "demand_stars": 2
+    }
+  ],
+  "removed": [],
+  "changed": []
+}
